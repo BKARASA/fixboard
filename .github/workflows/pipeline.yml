@@ -16,13 +16,14 @@ on:
       - "sonar-project.properties"
       - ".github/workflows/pipeline.yml"
 
-permissions:
-  contents: read
-  pull-requests: read
+
 
 jobs:
   checks:
     runs-on: ubuntu-latest
+    permissions:
+     contents: read
+     pull-requests: read
     steps:
       - uses: actions/checkout@v4
         with:
