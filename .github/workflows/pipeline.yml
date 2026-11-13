@@ -168,14 +168,13 @@ jobs:
           else
             echo "Image tags already up to date"
           fi       
-
-   verify:
-        needs: release
-        runs-on: ubuntu-latest
-        env:
-         ARGOCD_SERVER: ${{ vars.ARGOCD_SERVER }}
-         ARGOCD_AUTH_TOKEN: ${{ secrets.ARGOCD_AUTH_TOKEN }}
-  steps:
+  verify:
+    needs: release
+    runs-on: ubuntu-latest
+    env:
+      ARGOCD_SERVER: ${{ vars.ARGOCD_SERVER }}
+      ARGOCD_AUTH_TOKEN: ${{ secrets.ARGOCD_AUTH_TOKEN }}
+    steps:
       - name: Install the ArgoCD CLI
         run: |
           curl -sSL -o argocd \
@@ -190,4 +189,4 @@ jobs:
       - name: Smoke test the live site
         run: |
           curl -fsS --retry 5 --retry-delay 5 --retry-all-errors "${{ vars.APP_URL }}/" > /dev/null
-          curl -fsS --retry 5 --retry-delay 5 --retry-all-errors "${{ vars.APP_URL }}/api/health"      
+          curl -fsS --retry 5 --retry-delay 5 --retry-all-errors "${{ vars.APP_URL }}/api/health"
